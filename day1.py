@@ -14,11 +14,17 @@ for line in lines:
 left.sort()
 right.sort()
 
-# find and summarise the distances
 sum_distance = 0
+similarity_score = 0
 for idx in range(left.__len__()):
+    # find and summarise the distances
     distance = abs(left[idx] - right[idx])
     sum_distance += distance
 
+    # determine similarity score
+    similarity_score += left[idx] * right.count(left[idx])
+
 # Part 1
 print(sum_distance)
+# Part 2
+print(similarity_score)

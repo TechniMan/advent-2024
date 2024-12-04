@@ -13,9 +13,10 @@ with open("day4.txt") as file:
 
 # conduct word search for 'XMAS'
 sum = 0
+sum_p2 = 0
 for y in range(width):
     for x in range(width):
-        # is this the start of a 'XMAS'?
+        # is this the start of an 'XMAS'?
         if grid[y][x] == 'X':
 
             ## HORIZONTAL
@@ -56,4 +57,43 @@ for y in range(width):
                 if grid[y - 1][x + 1] == 'M' and grid[y - 2][x + 2] == 'A' and grid[y - 3][x + 3] == 'S':
                     sum += 1
 
+        # is this the start of an 'X-MAS'?
+        if grid[y][x] == 'M':
+            # * M
+            #  A 
+            # S S
+            if y <= width - 3 and x <= width - 3:
+                if grid[y][x + 2] == 'M':
+                    if grid[y + 1][x + 1] == 'A':
+                        if grid[y + 2][x] == 'S' and grid[y + 2][x + 2] == 'S':
+                            sum_p2 += 1
+
+            # S *
+            #  A 
+            # S M
+            if y <= width - 3 and x >= 2:
+                if grid[y + 2][x] == 'M':
+                    if grid[y + 1][x - 1] == 'A':
+                        if grid[y + 2][x - 2] == 'S' and grid[y][x - 2] == 'S':
+                            sum_p2 += 1
+
+            # S S
+            #  A 
+            # M *
+            if y >= 2 and x >= 2:
+                if grid[y][x - 2] == 'M':
+                    if grid[y - 1][x - 1] == 'A':
+                        if grid[y - 2][x - 2] == 'S' and grid[y - 2][x] == 'S':
+                            sum_p2 += 1
+
+            # M S
+            #  A 
+            # * S
+            if y >= 2 and x <= width - 3:
+                if grid[y - 2][x] == 'M':
+                    if grid[y - 1][x + 1] == 'A':
+                        if grid[y - 2][x + 2] == 'S' and grid[y][x + 2] == 'S':
+                            sum_p2 += 1
+
 print(f"Part 1: {sum}")
+print(f"Part 2: {sum_p2}")
